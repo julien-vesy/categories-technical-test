@@ -1,0 +1,58 @@
+@use '../src/styles' as *;
+
+:host {
+  flex: 0 0 46%;
+  background-color: white;
+  --m-red: #{$m-red};
+  --m-red-dark: #{$m-red-dark};
+
+  --m-yellow: #{$m-yellow};
+  --m-yellow-dark: #{$m-yellow-dark};
+
+  --m-blue: #{$m-blue};
+  --m-blue-dark: #{$m-blue-dark};
+
+  --m-pink: #{$m-pink};
+  --m-pink-dark: #{$m-pink-dark};
+
+  --m-purple: #{$m-purple};
+  --m-purple-dark: #{$m-purple-dark};
+
+  --m-green: #{$m-green};
+  --m-green-dark: #{$m-green-dark};
+
+  border-bottom: 1px solid $m-gray;
+  border-left: 1px solid $m-gray;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+:host:nth-child(1) {
+  border-top: 1px solid $m-gray;
+}
+:host:nth-child(2) {
+  border-top: 1px solid $m-gray;
+}
+
+:host:nth-child(2n) {
+  border-right: 1px solid $m-gray;
+}
+
+.group {
+  padding: 5px 16px;
+  border-radius: 15px;
+  width: fit-content;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.body {
+  font-weight: 400;
+  color: $m-gray-dark;
+}

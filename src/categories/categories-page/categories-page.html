@@ -1,0 +1,21 @@
+@for (column of groupCategories(); track column) {
+<div>{{ column.name }}</div>
+}
+
+<form [formGroup]="form">
+  <!--  <app-category-search formControlName="searchTerm"></app-category-search>-->
+
+  <app-categories-selector-item
+    formControlName="selectedGroup"
+    [groupCategories]="groupCategories()"
+  ></app-categories-selector-item>
+</form>
+<button (click)="click()"></button>
+<div style="display: flex; flex-wrap: wrap">
+  @for (category of mappedVisibleCategories(); track category.id) {
+  <app-categorie-item
+    [categorie]="category"
+    [displayGroup]="false"
+  ></app-categorie-item>
+  }
+</div>
