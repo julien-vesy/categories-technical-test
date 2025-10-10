@@ -1,4 +1,10 @@
-import { computed, Injectable, Signal, signal } from '@angular/core'
+import {
+  computed,
+  Injectable,
+  linkedSignal,
+  Signal,
+  signal,
+} from '@angular/core'
 import { Category } from './models/categorie'
 import { VisibleCategory } from './models/visible-category'
 import { GroupCategory } from './models/group-category'
@@ -7,6 +13,9 @@ import { GroupCategory } from './models/group-category'
 export class CategoriesRepository {
   readonly writableCategories = signal<Category[]>([])
   private readonly writableVisibleCategories = signal<VisibleCategory[]>([])
+
+  private readonly searchTerm = signal<string>('')
+  private readonly selectedGroup = signal<number | null>(null)
 
   public readonly groupCategories: Signal<GroupCategory[]> = computed(() =>
     this.writableCategories()
@@ -23,13 +32,49 @@ export class CategoriesRepository {
       )
   )
 
-  // categori;
+  public readonly mappedVisibleCategories: Signal<Category[]> = linkedSignal({
+    source: () => ({
+      writableVisibleCategories: this.writableVisibleCategories(),
+      writableCategories: this.writableCategories(),
+      searchTerm: this.searchTerm(),
+      selectedGroup: this.selectedGroup(),
+    }),
+    computation: (data) => {
+      return data.writableVisibleCategories
+        .map((vc) => data.writableCategories.find((i) => i.id === vc.id))
+        .filter((cat) => cat !== undefined)
+        .filter((cat) =>
+          cat!.wording.toLowerCase().includes(data.searchTerm.toLowerCase())
+        )
+        .filter((cat) =>
+          data.selectedGroup !== null
+            ? cat!.group?.id === data.selectedGroup
+            : true
+        )
+        .sort((a, b) =>
+          a.wording.localeCompare(b.wording, 'fr', { sensitivity: 'base' })
+        )
+    },
+  })
 
-  public readonly mappedVisibleCategories: Signal<Category[]> = computed(() =>
-    this.writableVisibleCategories()
-      .map((vc) => this.writableCategories().find((i) => i.id === vc.id))
-      .filter((cat) => cat !== undefined)
-  )
+  mappedVisibleCategoriesByGroupId: Signal<{ [key: number]: Category[] }> =
+    computed(() => {
+      return this.groupByGroupId(this.mappedVisibleCategories())
+    })
+
+  groupByGroupId(categories: Category[]): { [key: number]: Category[] } {
+    return categories.reduce(
+      (acc, category) => {
+        const groupId = category.group?.id ?? 0
+        if (!acc[groupId]) {
+          acc[groupId] = []
+        }
+        acc[groupId].push(category)
+        return acc
+      },
+      {} as { [key: number]: Category[] }
+    )
+  }
 
   private writableHasBeenLoaded = signal<boolean>(false)
   public hasBeenLoaded: Signal<boolean> = this.writableHasBeenLoaded
@@ -40,5 +85,13 @@ export class CategoriesRepository {
 
   public setVisibleCategories(categories: VisibleCategory[]): void {
     this.writableVisibleCategories.set(categories)
+  }
+
+  public setSearchTerm(searchTerm: string | null): void {
+    this.searchTerm.set(searchTerm!)
+  }
+
+  public setSelectedGroup(groupId: number | null): void {
+    this.selectedGroup.set(groupId !== null ? +groupId : null)
   }
 }

@@ -1,16 +1,20 @@
+<div>
+  <button (click)="displayByGroup = false">false</button>
+  <button (click)="displayByGroup = true">true</button>
+</div>
 @for (column of groupCategories(); track column) {
 <div>{{ column.name }}</div>
 }
 
 <form [formGroup]="form">
-  <!--  <app-category-search formControlName="searchTerm"></app-category-search>-->
-
+  <app-category-search formControlName="searchTerm"></app-category-search>
   <app-categories-selector-item
     formControlName="selectedGroup"
     [groupCategories]="groupCategories()"
   ></app-categories-selector-item>
 </form>
 <button (click)="click()"></button>
+@if (displayByGroup === false) {
 <div style="display: flex; flex-wrap: wrap">
   @for (category of mappedVisibleCategories(); track category.id) {
   <app-categorie-item
@@ -19,3 +23,18 @@
   ></app-categorie-item>
   }
 </div>
+} @if (displayByGroup === true) {
+<div style="display: flex; flex-wrap: wrap">
+  @for (groupCategories of groupCategories(); track groupCategories.id) {
+  <div style="display: flex; flex-wrap: wrap">
+    @for ( category of mappedVisibleCategoriesByGroupId()[groupCategories.id];
+    track category.id ) {
+    <app-categorie-item
+      [categorie]="category"
+      [displayGroup]="false"
+    ></app-categorie-item>
+    }
+  </div>
+  }
+</div>
+}
