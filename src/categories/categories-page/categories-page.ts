@@ -29,7 +29,6 @@ export class CategoriesPage implements OnInit {
   readonly groupCategories = this.categoriesRepository.groupCategories
   readonly mappedVisibleCategories =
     this.categoriesRepository.mappedVisibleCategories
-  readonly writableCategories = this.categoriesRepository.writableCategories
 
   readonly mappedVisibleCategoriesByGroupId =
     this.categoriesRepository.mappedVisibleCategoriesByGroupId

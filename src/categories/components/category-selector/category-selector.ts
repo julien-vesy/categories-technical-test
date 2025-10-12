@@ -38,12 +38,9 @@ export class CategorySelectorComponent implements ControlValueAccessor {
     this.onTouched = fn
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Optionnel
-  }
+  setDisabledState?(isDisabled: boolean): void {}
 
   onGroupChange() {
-    console.log(this.selectedGroup)
     this.onChange(this.selectedGroup)
     this.onTouched()
   }

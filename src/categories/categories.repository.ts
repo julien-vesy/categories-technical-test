@@ -11,14 +11,16 @@ import { GroupCategory } from './models/group-category'
 
 @Injectable({ providedIn: 'root' })
 export class CategoriesRepository {
-  readonly writableCategories = signal<Category[]>([])
+  private readonly writableCategories = signal<Category[]>([])
+  public readonly categories = this.writableCategories.asReadonly()
+
   private readonly writableVisibleCategories = signal<VisibleCategory[]>([])
 
   private readonly searchTerm = signal<string>('')
   private readonly selectedGroup = signal<number | null>(null)
 
   public readonly groupCategories: Signal<GroupCategory[]> = computed(() =>
-    this.writableCategories()
+    this.categories()
       .filter((cat) => cat.group !== undefined)
       .map((c) => c.group)
       .reduce<GroupCategory[]>((acc, group) => {
@@ -32,7 +34,7 @@ export class CategoriesRepository {
   public readonly mappedVisibleCategories: Signal<Category[]> = linkedSignal({
     source: () => ({
       writableVisibleCategories: this.writableVisibleCategories(),
-      writableCategories: this.writableCategories(),
+      writableCategories: this.categories(),
       searchTerm: this.searchTerm(),
       selectedGroup: this.selectedGroup(),
     }),
