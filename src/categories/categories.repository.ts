@@ -35,8 +35,8 @@ export class CategoriesRepository {
       searchTerm: this.searchTerm(),
       selectedGroup: this.selectedGroup(),
     }),
-    computation: (data) => {
-      return data.visibleCategories
+    computation: (data) =>
+      data.visibleCategories
         .map((vc) => data.categories.find((i) => i.id === vc.id))
         .filter((cat) => cat !== undefined)
         .filter((cat) =>
@@ -49,8 +49,7 @@ export class CategoriesRepository {
         )
         .sort((a, b) =>
           a.wording.localeCompare(b.wording, 'fr', { sensitivity: 'base' })
-        )
-    },
+        ),
   })
 
   mappedVisibleCategoriesByGroupId: Signal<{ [key: number]: Category[] }> =
