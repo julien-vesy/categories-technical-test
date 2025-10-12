@@ -11,11 +11,8 @@ import { GroupCategory } from './models/group-category'
 
 @Injectable()
 export class CategoriesRepository {
-  private readonly writableCategories = signal<Category[]>([])
-  public readonly categories = this.writableCategories.asReadonly()
-
-  private readonly writableVisibleCategories = signal<VisibleCategory[]>([])
-
+  private readonly categories = signal<Category[]>([])
+  private readonly visibleCategories = signal<VisibleCategory[]>([])
   private readonly searchTerm = signal<string>('')
   private readonly selectedGroup = signal<number | null>(null)
 
@@ -33,14 +30,14 @@ export class CategoriesRepository {
 
   public readonly mappedVisibleCategories: Signal<Category[]> = linkedSignal({
     source: () => ({
-      writableVisibleCategories: this.writableVisibleCategories(),
-      writableCategories: this.categories(),
+      visibleCategories: this.visibleCategories(),
+      categories: this.categories(),
       searchTerm: this.searchTerm(),
       selectedGroup: this.selectedGroup(),
     }),
     computation: (data) => {
-      return data.writableVisibleCategories
-        .map((vc) => data.writableCategories.find((i) => i.id === vc.id))
+      return data.visibleCategories
+        .map((vc) => data.categories.find((i) => i.id === vc.id))
         .filter((cat) => cat !== undefined)
         .filter((cat) =>
           cat!.wording.toLowerCase().includes(data.searchTerm.toLowerCase())
@@ -57,8 +54,8 @@ export class CategoriesRepository {
   })
 
   mappedVisibleCategoriesByGroupId: Signal<{ [key: number]: Category[] }> =
-    computed(() => {
-      return this.mappedVisibleCategories().reduce(
+    computed(() =>
+      this.mappedVisibleCategories().reduce(
         (acc, category) => {
           const groupId = category.group?.id ?? 0
           if (!acc[groupId]) {
@@ -69,14 +66,14 @@ export class CategoriesRepository {
         },
         {} as { [key: number]: Category[] }
       )
-    })
+    )
 
   public setCategories(categories: Category[]): void {
-    this.writableCategories.set(categories)
+    this.categories.set(categories)
   }
 
   public setVisibleCategories(categories: VisibleCategory[]): void {
-    this.writableVisibleCategories.set(categories)
+    this.visibleCategories.set(categories)
   }
 
   public setSearchTerm(searchTerm: string | null): void {
