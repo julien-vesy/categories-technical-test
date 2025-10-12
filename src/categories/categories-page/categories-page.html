@@ -6,66 +6,67 @@
 <div class="card-container">
   <div class="search-container">
     <form [formGroup]="form">
-      <app-category-search
-        style="flex: 1 1 480px; min-width: 0"
-        formControlName="searchTerm"
-      ></app-category-search>
+      <app-category-search formControlName="searchTerm"></app-category-search>
       <app-categories-selector-item
-        style="flex: 0 0 280px"
         formControlName="selectedGroup"
         [groupCategories]="groupCategories()"
       ></app-categories-selector-item>
     </form>
 
     @if (categoriesSort() === 'BY_ALPHA') {
-    <div class="categories-grid">
-      @for (category of mappedVisibleCategories(); track category.id) {
-      <app-categorie-item
-        [style.z-index]="selectedItemId() === category.id ? '10000' : '1000'"
-        (selected)="selectedItemId.set(category.id)"
-        [isSelected]="selectedItemId() === category.id"
-        [categorie]="category"
-        [displayGroup]="true"
-      ></app-categorie-item>
-      }
-    </div>
-    } @if (categoriesSort() === 'BY_GROUP') {
-    <div style="display: flex; flex-direction: column">
-      @for (groupCategories of groupCategories(); track groupCategories.id) {
-      @if (mappedVisibleCategoriesByGroupId()[groupCategories.id]) {
-      <div
-        class="group-grid-header"
-        [style.color]="'var(--' + groupCategories.color + '-dark)'"
-        [style.background-color]="'var(--' + groupCategories.color + ')'"
-      >
-        {{ groupCategories.name }}
-      </div>
-
       <div class="categories-grid">
-        @for (category of
-        mappedVisibleCategoriesByGroupId()[groupCategories.id]; track
-        category.id) {
-        <app-categorie-item
-          [style.z-index]="selectedItemId() === category.id ? '10000' : '1000'"
-          (selected)="selectedItemId.set(category.id)"
-          [isSelected]="selectedItemId() === category.id"
-          [categorie]="category"
-          [displayGroup]="false"
-        ></app-categorie-item>
+        @for (category of mappedVisibleCategories(); track category.id) {
+          <!-- z-index required for outline display when selected -->
+          <app-categorie-item
+            [style.z-index]="
+              selectedItemId() === category.id ? '10000' : '1000'
+            "
+            (selected)="selectedItemId.set(category.id)"
+            [isSelected]="selectedItemId() === category.id"
+            [categorie]="category"
+            [displayGroup]="true"
+          ></app-categorie-item>
         }
       </div>
-      } }
-    </div>
+    }
+    @if (categoriesSort() === 'BY_GROUP') {
+      <div style="display: flex; flex-direction: column">
+        @for (groupCategories of groupCategories(); track groupCategories.id) {
+          @if (mappedVisibleCategoriesByGroupId()[groupCategories.id]) {
+            <div
+              class="group-grid-header"
+              [style.color]="'var(--' + groupCategories.color + '-dark)'"
+              [style.background-color]="'var(--' + groupCategories.color + ')'"
+            >
+              {{ groupCategories.name }}
+            </div>
+
+            <div class="categories-grid">
+              @for (
+                category of mappedVisibleCategoriesByGroupId()[
+                  groupCategories.id
+                ];
+                track category.id
+              ) {
+                <!-- z-index required for outline display when selected -->
+                <app-categorie-item
+                  [style.z-index]="
+                    selectedItemId() === category.id ? '10000' : '1000'
+                  "
+                  (selected)="selectedItemId.set(category.id)"
+                  [isSelected]="selectedItemId() === category.id"
+                  [categorie]="category"
+                  [displayGroup]="false"
+                ></app-categorie-item>
+              }
+            </div>
+          }
+        }
+      </div>
     }
   </div>
 </div>
 
 <div class="footer-container">
-  <button
-    (click)="setCategoriesSort('BY_GROUP')"
-    [class]="categoriesSort() === 'BY_GROUP'? 'toggle': ''"
-    class="footer-button"
-  >
-    Selection la categorie
-  </button>
+  <button class="footer-button">Sélectionner la catégorie</button>
 </div>

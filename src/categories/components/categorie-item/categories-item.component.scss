@@ -34,23 +34,20 @@
   background-color: $m-gray;
 }
 
-:host:nth-last-child(-n + 1) {
-  .categories-item-container {
-    border-bottom: 0;
-  }
-}
-
 .selected {
   outline: 1px solid $m-blue-dark !important;
   background-color: $m-blue !important;
 }
 
 .group {
-  padding: 5px 16px;
-  border-radius: 15px;
+  padding: 2px 16px;
+  border-radius: 16px;
   width: fit-content;
   font-weight: 400;
   margin-bottom: 10px;
+  font-size: 12px;
+  letter-spacing: 0;
+  vertical-align: middle;
 }
 
 .title {
