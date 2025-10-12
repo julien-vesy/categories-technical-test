@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core'
+import { Component, inject, OnInit, signal } from '@angular/core'
 import { CategoriesService } from '../categories.service'
 import { CategoriesRepository } from '../categories.repository'
 import { CategorySelectorComponent } from '../components/category-selector/category-selector'
@@ -6,8 +6,8 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
 import { CategoriesItem } from '../components/categorie-item/categories-item.component'
 import { CategorySearchComponent } from '../components/category-search/category-search'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-
-type CategoriesSort = 'BY_GROUP' | 'BY_ALPHA'
+import { CategorieHeader } from '../components/categorie-header/categorie-header'
+import { CategoriesSort } from '../models/categorie-sort'
 
 @Component({
   selector: 'app-categories-page',
@@ -16,6 +16,7 @@ type CategoriesSort = 'BY_GROUP' | 'BY_ALPHA'
     ReactiveFormsModule,
     CategoriesItem,
     CategorySearchComponent,
+    CategorieHeader,
   ],
   templateUrl: './categories-page.html',
   styleUrl: './categories-page.scss',
@@ -33,7 +34,7 @@ export class CategoriesPage implements OnInit {
   readonly mappedVisibleCategoriesByGroupId =
     this.categoriesRepository.mappedVisibleCategoriesByGroupId
 
-  categoriesSort: CategoriesSort = 'BY_GROUP'
+  categoriesSort = signal<CategoriesSort>('BY_GROUP')
 
   form = this.fb.group({
     searchTerm: [''],
@@ -62,6 +63,6 @@ export class CategoriesPage implements OnInit {
   }
 
   setCategoriesSort(newSort: CategoriesSort) {
-    this.categoriesSort = newSort
+    this.categoriesSort.set(newSort)
   }
 }

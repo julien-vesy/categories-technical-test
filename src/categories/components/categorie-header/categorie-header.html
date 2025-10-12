@@ -1,0 +1,17 @@
+<h4>Catégories</h4>
+<button
+  (click)="setCategoriesSort('BY_GROUP')"
+  [class]="categoriesSort() === 'BY_GROUP'? 'toggle': ''"
+  class="header-button"
+>
+  <img src="sort-group.svg" class="icon" alt="Groupe de Catégorie" />
+  Groupe de Catégorie
+</button>
+<button
+  (click)="setCategoriesSort('BY_ALPHA')"
+  [class]="categoriesSort() === 'BY_ALPHA' ? 'toggle': ''"
+  class="header-button"
+>
+  <img src="sort-alpha.svg" class="icon" alt="Ordre alhpabétique" />
+  Ordre alhpabétique
+</button>
