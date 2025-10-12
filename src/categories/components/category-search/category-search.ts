@@ -35,9 +35,7 @@ export class CategorySearchComponent implements ControlValueAccessor {
     this.onTouched = fn
   }
 
-  setDisabledState?(isDisabled: boolean): void {
-    // Optionnel
-  }
+  setDisabledState?(isDisabled: boolean): void {}
 
   onInputChange() {
     this.onChange(this.searchTerm)

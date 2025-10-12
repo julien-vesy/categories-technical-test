@@ -1,40 +1,80 @@
-<div>
-  <button (click)="displayByGroup = false">false</button>
-  <button (click)="displayByGroup = true">true</button>
+<div class="header-container">
+  <h3>Catégories</h3>
+  <button
+    (click)="setCategoriesSort('BY_GROUP')"
+    [class]="categoriesSort === 'BY_GROUP'? 'toggle': ''"
+    class="header-button"
+  >
+    <img src="sort-group.svg" class="icon" alt="Groupe de Catégorie" />
+    Groupe de Catégorie
+  </button>
+  <button
+    (click)="setCategoriesSort('BY_ALPHA')"
+    [class]="categoriesSort === 'BY_ALPHA' ? 'toggle': ''"
+    class="header-button"
+  >
+    <img src="sort-alpha.svg" class="icon" alt="Ordre alhpabétique" />
+    Ordre alhpabétique
+  </button>
 </div>
-@for (column of groupCategories(); track column) {
-<div>{{ column.name }}</div>
-}
 
-<form [formGroup]="form">
-  <app-category-search formControlName="searchTerm"></app-category-search>
-  <app-categories-selector-item
-    formControlName="selectedGroup"
-    [groupCategories]="groupCategories()"
-  ></app-categories-selector-item>
-</form>
-<button (click)="click()"></button>
-@if (displayByGroup === false) {
-<div style="display: flex; flex-wrap: wrap">
-  @for (category of mappedVisibleCategories(); track category.id) {
-  <app-categorie-item
-    [categorie]="category"
-    [displayGroup]="false"
-  ></app-categorie-item>
-  }
-</div>
-} @if (displayByGroup === true) {
-<div style="display: flex; flex-wrap: wrap">
-  @for (groupCategories of groupCategories(); track groupCategories.id) {
-  <div style="display: flex; flex-wrap: wrap">
-    @for ( category of mappedVisibleCategoriesByGroupId()[groupCategories.id];
-    track category.id ) {
-    <app-categorie-item
-      [categorie]="category"
-      [displayGroup]="false"
-    ></app-categorie-item>
+<div class="card-container">
+  <div class="search-container">
+    <form [formGroup]="form">
+      <app-category-search
+        style="flex: 1 1 480px; min-width: 0"
+        formControlName="searchTerm"
+      ></app-category-search>
+      <app-categories-selector-item
+        style="flex: 0 0 280px"
+        formControlName="selectedGroup"
+        [groupCategories]="groupCategories()"
+      ></app-categories-selector-item>
+    </form>
+
+    @if (categoriesSort === 'BY_ALPHA') {
+    <div class="categories-grid">
+      @for (category of mappedVisibleCategories(); track category.id) {
+      <app-categorie-item
+        [categorie]="category"
+        [displayGroup]="true"
+      ></app-categorie-item>
+      }
+    </div>
+    } @if (categoriesSort === 'BY_GROUP') {
+    <div style="display: flex; flex-direction: column">
+      @for (groupCategories of groupCategories(); track groupCategories.id) {
+      @if (mappedVisibleCategoriesByGroupId()[groupCategories.id]) {
+      <div
+        class="group-grid-header"
+        [style.color]="'var(--' + groupCategories.color + '-dark)'"
+        [style.background-color]="'var(--' + groupCategories.color + ')'"
+      >
+        {{ groupCategories.name }}
+      </div>
+
+      <div class="categories-grid">
+        @for (category of
+        mappedVisibleCategoriesByGroupId()[groupCategories.id]; track
+        category.id) {
+        <app-categorie-item
+          [categorie]="category"
+          [displayGroup]="false"
+        ></app-categorie-item>
+        }
+      </div>
+      } }
+    </div>
     }
   </div>
-  }
 </div>
-}
+
+<div class="footer-container">
+  <button
+    (click)="setCategoriesSort('BY_GROUP')"
+    [class]="categoriesSort === 'BY_GROUP'? 'toggle': ''"
+    class="footer-button"
+  >
+    Selection la categorie
+  </button>
+</div>

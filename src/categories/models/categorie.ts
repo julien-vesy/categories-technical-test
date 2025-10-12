@@ -2,12 +2,7 @@ import { GroupCategory } from './group-category'
 
 export interface Category {
   id: number
-  group?: {
-    id: number
-    name: string
-    color: string
-  }
-
+  group?: GroupCategory
   wording: string
   description: string
 }

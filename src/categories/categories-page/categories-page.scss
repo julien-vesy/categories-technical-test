@@ -1,0 +1,128 @@
+@use '../src/styles' as *;
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+@media (max-width: 700px) {
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.group-grid-header {
+  --m-red: #{$m-red};
+  --m-red-dark: #{$m-red-dark};
+
+  --m-yellow: #{$m-yellow};
+  --m-yellow-dark: #{$m-yellow-dark};
+
+  --m-blue: #{$m-blue};
+  --m-blue-dark: #{$m-blue-dark};
+
+  --m-pink: #{$m-pink};
+  --m-pink-dark: #{$m-pink-dark};
+
+  --m-purple: #{$m-purple};
+  --m-purple-dark: #{$m-purple-dark};
+
+  --m-green: #{$m-green};
+  --m-green-dark: #{$m-green-dark};
+
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+
+  padding: 2px 15px;
+}
+
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  height: 60px;
+  width: calc(100% - 244px);
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  padding: 0 122px;
+  background-color: white;
+  .footer-button {
+    width: 198px;
+    height: 35px;
+    border: none;
+    background-color: $m-blue-dark;
+    color: white;
+    border-radius: 4px;
+    font-family: 'Open Sans', serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: 0px;
+    vertical-align: middle;
+  }
+}
+
+.header-container {
+  position: fixed;
+  height: 60px;
+  width: calc(100% - 244px);
+  display: flex;
+  align-items: center;
+  padding: 0 122px;
+  background-color: white;
+
+  h3 {
+    margin: 10px;
+  }
+
+  .header-button {
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    height: 30px;
+    min-width: 160px;
+    background-color: white;
+    color: $m-gray-dark;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    font-weight: 600;
+
+    img {
+      margin-right: 5px;
+    }
+
+    &.toggle {
+      background-color: $m-blue;
+      color: $m-blue-dark;
+    }
+  }
+}
+
+.categories-grid:has(> app-categorie-item:last-child:nth-child(even))
+  > app-categorie-item:nth-last-child(2) {
+  border-bottom: 0;
+}
+
+.card-container {
+  background-color: $m-gray-background;
+  padding: 92px 120px;
+  min-height: calc(100% - 240px);
+
+  .search-container {
+    background-color: white;
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      box-sizing: border-box;
+      padding: 15px;
+    }
+  }
+}

@@ -22,7 +22,13 @@ $m-green-dark: #2ecc71;
 $m-gray: #dce4ed;
 $m-gray-dark: #636970;
 
+$m-gray-background: #f3f5f8;
+
+$m-black: #001a25;
+
 html,
 body {
-  font-family: open-sans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  height: 100%;
 }

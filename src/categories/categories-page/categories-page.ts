@@ -7,6 +7,8 @@ import { CategoriesItem } from '../components/categorie-item/categories-item.com
 import { CategorySearchComponent } from '../components/category-search/category-search'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
+type CategoriesSort = 'BY_GROUP' | 'BY_ALPHA'
+
 @Component({
   selector: 'app-categories-page',
   imports: [
@@ -31,19 +33,14 @@ export class CategoriesPage implements OnInit {
   readonly mappedVisibleCategoriesByGroupId =
     this.categoriesRepository.mappedVisibleCategoriesByGroupId
 
-  readonly writableCategories2 = computed(() => {
-    return new Set(
-      this.writableCategories().map((category) => category.group?.color)
-    )
-  })
-
-  displayByGroup = true
+  categoriesSort: CategoriesSort = 'BY_GROUP'
 
   form = this.fb.group({
     searchTerm: [''],
     selectedGroup: [null],
     selectedCategory: [null],
   })
+
   constructor() {
     this.form
       .get('searchTerm')!
@@ -64,7 +61,7 @@ export class CategoriesPage implements OnInit {
     this.categoriesService.getVisibleCategories().subscribe()
   }
 
-  click() {
-    console.log(this.form.controls['selectedGroup'].value === null)
+  setCategoriesSort(newSort: CategoriesSort) {
+    this.categoriesSort = newSort
   }
 }

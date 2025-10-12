@@ -22,21 +22,14 @@
   --m-green-dark: #{$m-green-dark};
 
   border-bottom: 1px solid $m-gray;
-  border-left: 1px solid $m-gray;
+  border-right: 1px solid $m-gray;
   padding: 15px;
   display: flex;
   flex-direction: column;
 }
 
-:host:nth-child(1) {
-  border-top: 1px solid $m-gray;
-}
-:host:nth-child(2) {
-  border-top: 1px solid $m-gray;
-}
-
-:host:nth-child(2n) {
-  border-right: 1px solid $m-gray;
+:host:nth-last-child(-n + 1) {
+  border-bottom: 0;
 }
 
 .group {

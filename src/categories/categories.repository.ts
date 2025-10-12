@@ -27,9 +27,6 @@ export class CategoriesRepository {
         }
         return acc
       }, [])
-      .sort((a, b) =>
-        a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' })
-      )
   )
 
   public readonly mappedVisibleCategories: Signal<Category[]> = linkedSignal({
@@ -59,25 +56,18 @@ export class CategoriesRepository {
 
   mappedVisibleCategoriesByGroupId: Signal<{ [key: number]: Category[] }> =
     computed(() => {
-      return this.groupByGroupId(this.mappedVisibleCategories())
+      return this.mappedVisibleCategories().reduce(
+        (acc, category) => {
+          const groupId = category.group?.id ?? 0
+          if (!acc[groupId]) {
+            acc[groupId] = []
+          }
+          acc[groupId].push(category)
+          return acc
+        },
+        {} as { [key: number]: Category[] }
+      )
     })
-
-  groupByGroupId(categories: Category[]): { [key: number]: Category[] } {
-    return categories.reduce(
-      (acc, category) => {
-        const groupId = category.group?.id ?? 0
-        if (!acc[groupId]) {
-          acc[groupId] = []
-        }
-        acc[groupId].push(category)
-        return acc
-      },
-      {} as { [key: number]: Category[] }
-    )
-  }
-
-  private writableHasBeenLoaded = signal<boolean>(false)
-  public hasBeenLoaded: Signal<boolean> = this.writableHasBeenLoaded
 
   public setCategories(categories: Category[]): void {
     this.writableCategories.set(categories)
