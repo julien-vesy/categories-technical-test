@@ -6,8 +6,8 @@
   @if (displayGroup()) {
     <span
       class="group"
-      [style.color]="'var(--' + categorie().group?.color + '-dark)'"
-      [style.background-color]="'var(--' + categorie().group?.color + ')'"
+      [style.color]="getColor()"
+      [style.background-color]="getBackgroundColor()"
     >
       {{ categorie().group?.name }}
     </span>

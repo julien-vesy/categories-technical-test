@@ -12,4 +12,12 @@ export class CategoriesItem {
   readonly isSelected = input<boolean>(false)
   readonly categorie = input.required<Category>()
   readonly selected = output<void>()
+
+  getColor() {
+    return 'var(--' + (this.categorie().group?.color ?? 'm-grey') + '-dark)'
+  }
+
+  getBackgroundColor() {
+    return 'var(--' + (this.categorie().group?.color ?? 'm-grey') + ')'
+  }
 }

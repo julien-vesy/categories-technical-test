@@ -22,8 +22,11 @@
   --m-green: #{$m-green};
   --m-green-dark: #{$m-green-dark};
 
-  border-bottom: 1px solid $m-gray;
-  border-right: 1px solid $m-gray;
+  --m-grey: #{$m-grey};
+  --m-grey-dark: #{$m-grey-dark};
+
+  border-bottom: 1px solid $m-grey;
+  border-right: 1px solid $m-grey;
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -31,7 +34,7 @@
 }
 
 .categories-item-container:hover {
-  background-color: $m-gray;
+  background-color: $m-grey;
 }
 
 .selected {
@@ -57,5 +60,5 @@
 
 .body {
   font-weight: 400;
-  color: $m-gray-dark;
+  color: $m-grey-dark;
 }
