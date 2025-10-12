@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
-import { CategorySelector } from './category-selector'
+import { CategorySelectorComponent } from './category-selector'
 
-describe('CategorySelector', () => {
-  let component: CategorySelector
-  let fixture: ComponentFixture<CategorySelector>
+describe('CategorySelectorComponent', () => {
+  let component: CategorySelectorComponent
+  let fixture: ComponentFixture<CategorySelectorComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CategorySelector],
+      imports: [CategorySelectorComponent],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(CategorySelector)
+    fixture = TestBed.createComponent(CategorySelectorComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })
