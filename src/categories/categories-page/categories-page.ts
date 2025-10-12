@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core'
 import { CategoriesService } from '../categories.service'
 import { CategoriesRepository } from '../categories.repository'
 import { CategorySelectorComponent } from '../components/category-selector/category-selector'
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
 import { CategoriesItem } from '../components/categorie-item/categories-item.component'
 import { CategorySearchComponent } from '../components/category-search/category-search'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
@@ -25,7 +25,6 @@ import { CategoriesSort } from '../models/categorie-sort'
 export class CategoriesPage implements OnInit {
   private readonly categoriesService = inject(CategoriesService)
   private readonly categoriesRepository = inject(CategoriesRepository)
-  private readonly fb = inject(FormBuilder)
 
   readonly groupCategories = this.categoriesRepository.groupCategories
   readonly mappedVisibleCategories =
@@ -37,10 +36,9 @@ export class CategoriesPage implements OnInit {
   categoriesSort = signal<CategoriesSort>('BY_GROUP')
   selectedItemId = signal<number | undefined>(undefined)
 
-  form = this.fb.group({
-    searchTerm: [''],
-    selectedGroup: [null],
-    selectedCategory: [null],
+  form = new FormGroup({
+    searchTerm: new FormControl<string | null>(''),
+    selectedGroup: new FormControl<number | null>(null),
   })
 
   constructor() {
