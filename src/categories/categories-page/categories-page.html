@@ -30,7 +30,7 @@
       </div>
     }
     @if (categoriesSort() === 'BY_GROUP') {
-      <div style="display: flex; flex-direction: column">
+      <div class="flex-y">
         @for (groupCategories of groupCategories(); track groupCategories.id) {
           @if (mappedVisibleCategoriesByGroupId()[groupCategories.id]) {
             <div
