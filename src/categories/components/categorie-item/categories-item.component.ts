@@ -9,5 +9,6 @@ import { Category } from '../../models/categorie'
 })
 export class CategoriesItem {
   readonly displayGroup = input<boolean>(false)
+  readonly isSelected = input<boolean>(false)
   readonly categorie = input.required<Category>()
 }

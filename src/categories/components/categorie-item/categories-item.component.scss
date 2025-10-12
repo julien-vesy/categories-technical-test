@@ -26,8 +26,11 @@
   padding: 15px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
-
+:host:hover {
+  background-color: $m-gray;
+}
 :host:nth-last-child(-n + 1) {
   border-bottom: 0;
 }
