@@ -35,6 +35,7 @@ export class CategoriesPage implements OnInit {
     this.categoriesRepository.mappedVisibleCategoriesByGroupId
 
   categoriesSort = signal<CategoriesSort>('BY_GROUP')
+  selectedItemId = signal<number | undefined>(undefined)
 
   form = this.fb.group({
     searchTerm: [''],

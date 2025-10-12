@@ -1,11 +1,17 @@
-@if (displayGroup()) {
-  <span
-    class="group"
-    [style.color]="'var(--' + categorie().group?.color + '-dark)'"
-    [style.background-color]="'var(--' + categorie().group?.color + ')'"
-  >
-    {{ categorie().group?.name }}
-  </span>
-}
-<span class="title">{{ categorie().wording }}</span>
-<span class="body" [innerHTML]="categorie().description"></span>
+<div
+  class="categories-item-container"
+  [class.selected]="isSelected()"
+  (click)="selected.emit()"
+>
+  @if (displayGroup()) {
+    <span
+      class="group"
+      [style.color]="'var(--' + categorie().group?.color + '-dark)'"
+      [style.background-color]="'var(--' + categorie().group?.color + ')'"
+    >
+      {{ categorie().group?.name }}
+    </span>
+  }
+  <span class="title">{{ categorie().wording }}</span>
+  <span class="body" [innerHTML]="categorie().description"></span>
+</div>

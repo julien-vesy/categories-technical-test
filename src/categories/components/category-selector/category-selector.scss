@@ -10,7 +10,9 @@ select {
 
   -webkit-appearance: none;
   appearance: none;
-  &::-ms-expand { display: none; }
+  &::-ms-expand {
+    display: none;
+  }
 
   background-color: white;
   background-repeat: no-repeat;
@@ -19,5 +21,4 @@ select {
   background-image: url('../../../assets/arrow-icon.svg');
 
   color: $m-black;
-
 }

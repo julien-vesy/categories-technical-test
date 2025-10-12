@@ -1,6 +1,7 @@
 @use '../src/styles' as *;
 
-:host {
+.categories-item-container {
+  height: calc(100% - 31px);
   flex: 0 0 46%;
   background-color: white;
   --m-red: #{$m-red};
@@ -28,11 +29,20 @@
   flex-direction: column;
   cursor: pointer;
 }
-:host:hover {
+
+.categories-item-container:hover {
   background-color: $m-gray;
 }
+
 :host:nth-last-child(-n + 1) {
-  border-bottom: 0;
+  .categories-item-container {
+    border-bottom: 0;
+  }
+}
+
+.selected {
+  outline: 1px solid $m-blue-dark !important;
+  background-color: $m-blue !important;
 }
 
 .group {
