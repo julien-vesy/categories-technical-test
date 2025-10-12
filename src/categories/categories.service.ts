@@ -11,7 +11,7 @@ export class CategoriesService {
   private readonly http = inject(HttpClient)
   private readonly baseUrl = inject(BASE_URL)
 
-  getCategories(): Observable<Category[]> {
+  public getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.baseUrl}/api/all-categories`).pipe(
       tap((categories) => {
         this.categoriesRepository.setCategories(categories)
@@ -19,7 +19,7 @@ export class CategoriesService {
     )
   }
 
-  getVisibleCategories(): Observable<Category[]> {
+  public getVisibleCategories(): Observable<Category[]> {
     return this.http
       .get<Category[]>(`${this.baseUrl}/api/visible-categories`)
       .pipe(

@@ -40,17 +40,26 @@ export class CategoriesRepository {
         .map((vc) => data.categories.find((i) => i.id === vc.id))
         .filter((cat) => cat !== undefined)
         .filter((cat) =>
-          cat!.wording.toLowerCase().includes(data.searchTerm.toLowerCase())
+          this.normalize(cat!.wording).includes(this.normalize(data.searchTerm))
         )
-        .filter((cat) =>
-          data.selectedGroup !== null
-            ? cat!.group?.id === data.selectedGroup
-            : true
-        )
+        .filter((cat) => {
+          if (data.selectedGroup === null) {
+            return true
+          }
+          return cat!.group?.id === data.selectedGroup
+        })
         .sort((a, b) =>
           a.wording.localeCompare(b.wording, 'fr', { sensitivity: 'base' })
         ),
   })
+
+  private normalize(str: string): string {
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/gi, '')
+      .toLowerCase()
+  }
 
   public readonly mappedVisibleCategoriesByGroupId: Signal<{
     [key: number]: Category[]
