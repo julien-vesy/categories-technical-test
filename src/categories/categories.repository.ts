@@ -52,20 +52,21 @@ export class CategoriesRepository {
         ),
   })
 
-  mappedVisibleCategoriesByGroupId: Signal<{ [key: number]: Category[] }> =
-    computed(() =>
-      this.mappedVisibleCategories().reduce(
-        (acc, category) => {
-          const groupId = category.group?.id ?? 0
-          if (!acc[groupId]) {
-            acc[groupId] = []
-          }
-          acc[groupId].push(category)
-          return acc
-        },
-        {} as { [key: number]: Category[] }
-      )
+  public readonly mappedVisibleCategoriesByGroupId: Signal<{
+    [key: number]: Category[]
+  }> = computed(() =>
+    this.mappedVisibleCategories().reduce(
+      (acc, category) => {
+        const groupId = category.group?.id ?? 0
+        if (!acc[groupId]) {
+          acc[groupId] = []
+        }
+        acc[groupId].push(category)
+        return acc
+      },
+      {} as { [key: number]: Category[] }
     )
+  )
 
   public setCategories(categories: Category[]): void {
     this.categories.set(categories)
