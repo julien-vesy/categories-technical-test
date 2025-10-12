@@ -27,7 +27,7 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": ["src/styles.scss", "src/color.scss"],
             "stylePreprocessorOptions": {
               "includePaths": ["src"]
             }
@@ -82,7 +82,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": ["scss"],
             "assets": ["public"],
-            "styles": ["src/styles.scss"]
+            "styles": ["src/styles.scss", "src/color.scss"]
           }
         }
       }
