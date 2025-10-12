@@ -27,7 +27,7 @@ export default defineConfig([
       sourceType: 'script',
 
       parserOptions: {
-        project: ['tsconfig.json'],
+        project: ['tsconfig.eslint.json'],
         createDefaultProgram: true,
       },
     },
