@@ -18,6 +18,7 @@ import { CategoriesSort } from '../models/categorie-sort'
     CategorySearchComponent,
     CategorieHeader,
   ],
+  providers: [CategoriesRepository, CategoriesService],
   templateUrl: './categories-page.html',
   styleUrl: './categories-page.scss',
 })

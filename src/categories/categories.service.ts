@@ -5,7 +5,7 @@ import { BASE_URL } from '../app/app.config'
 import { Category } from './models/categorie'
 import { CategoriesRepository } from './categories.repository'
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CategoriesService {
   private readonly categoriesRepository = inject(CategoriesRepository)
   private readonly http = inject(HttpClient)

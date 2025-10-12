@@ -9,7 +9,7 @@ import { Category } from './models/categorie'
 import { VisibleCategory } from './models/visible-category'
 import { GroupCategory } from './models/group-category'
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CategoriesRepository {
   private readonly writableCategories = signal<Category[]>([])
   public readonly categories = this.writableCategories.asReadonly()
