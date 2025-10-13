@@ -5,6 +5,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing'
 import { BASE_URL } from '../../../app/app.config'
 import { CategoriesRepository } from '../../categories.repository'
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { GroupCategory } from '../../models/group-category'
 
 describe('CategoriesPage', () => {
   let component: CategoriesPage
@@ -44,6 +45,31 @@ describe('CategoriesPage', () => {
   it('devrait initialiser les signaux correctement', () => {
     expect(component.categoriesSort()).toBe('BY_GROUP')
     expect(component.selectedItemId()).toBeUndefined()
+  })
+
+  describe('color methods', () => {
+    it('getColor should return dark variant based on category group color', async () => {
+      expect(component.getColor({ color: 'green' } as GroupCategory)).toBe(
+        'var(--green-dark)'
+      )
+    })
+
+    it('getBackgroundColor should return normal variant based on category group color', async () => {
+      expect(
+        component.getBackgroundColor({ color: 'green' } as GroupCategory)
+      ).toBe('var(--green)')
+    })
+
+    it('getColor should default to grey when group is missing', async () => {
+      expect(
+        component.getColor({ color: undefined } as unknown as GroupCategory)
+      ).toBe('var(--m-grey-dark)')
+      expect(
+        component.getBackgroundColor({
+          color: undefined,
+        } as unknown as GroupCategory)
+      ).toBe('var(--m-grey)')
+    })
   })
 
   describe('setCategoriesSort', () => {

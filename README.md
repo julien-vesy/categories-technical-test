@@ -17,5 +17,9 @@ npm start
 Pour tester :
 
 ```
+npm install
+```
+
+```
 npm test
 ```

@@ -37,7 +37,9 @@ describe('CategoriesItem', () => {
     fixture.detectChanges()
 
     const title = fixture.debugElement.query(By.css('.title')).nativeElement
-    const body = fixture.debugElement.query(By.css('.body')).nativeElement
+    const body = fixture.debugElement.query(
+      By.css('.description')
+    ).nativeElement
 
     expect(title.textContent).toContain(mockCategory.wording)
     expect(body.innerHTML).toContain(mockCategory.description)
