@@ -35,8 +35,8 @@
           @if (mappedVisibleCategoriesByGroupId()[groupCategories.id]) {
             <div
               class="group-grid-header"
-              [style.color]="'var(--' + groupCategories.color + '-dark)'"
-              [style.background-color]="'var(--' + groupCategories.color + ')'"
+              [style.color]="getColor(groupCategories)"
+              [style.background-color]="getBackgroundColor(groupCategories)"
             >
               {{ groupCategories.name }}
             </div>

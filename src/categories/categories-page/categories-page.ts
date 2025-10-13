@@ -8,6 +8,7 @@ import { CategorySearchComponent } from '../components/category-search/category-
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { CategorieHeader } from '../components/categorie-header/categorie-header'
 import { CategoriesSort } from '../models/categorie-sort'
+import { GroupCategory } from '../models/group-category'
 
 @Component({
   selector: 'app-categories-page',
@@ -54,6 +55,14 @@ export class CategoriesPage implements OnInit {
       .subscribe((value) => {
         this.categoriesRepository.setSelectedGroup(value)
       })
+  }
+
+  getColor(groupCategory: GroupCategory) {
+    return 'var(--' + (groupCategory?.color ?? 'm-grey') + '-dark)'
+  }
+
+  getBackgroundColor(groupCategory: GroupCategory) {
+    return 'var(--' + (groupCategory?.color ?? 'm-grey') + ')'
   }
 
   ngOnInit(): void {
