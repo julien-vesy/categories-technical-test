@@ -25,8 +25,7 @@
               {
                 "glob": "**/*",
                 "input": "public"
-              },
-              "src/assets"
+              }
             ],
             "styles": ["src/styles.scss", "src/color.scss"],
             "stylePreprocessorOptions": {
@@ -82,7 +81,7 @@
             "polyfills": [],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": ["scss"],
-            "assets": ["public", "src/assets"],
+            "assets": ["public"],
             "styles": ["src/styles.scss", "src/color.scss"]
           }
         }
