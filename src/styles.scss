@@ -39,3 +39,10 @@ h4 {
   display: flex;
   flex-direction: column;
 }
+
+.flex-y-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}

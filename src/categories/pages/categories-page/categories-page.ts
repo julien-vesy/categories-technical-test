@@ -9,6 +9,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { CategorieHeader } from '../../components/categorie-header/categorie-header'
 import { CategoriesSort } from '../../models/categorie-sort'
 import { GroupCategory } from '../../models/group-category'
+import { forkJoin } from 'rxjs'
 
 @Component({
   selector: 'app-categories-page',
@@ -36,6 +37,7 @@ export class CategoriesPage implements OnInit {
 
   categoriesSort = signal<CategoriesSort>('BY_GROUP')
   selectedItemId = signal<number | undefined>(undefined)
+  hasServerError = signal<boolean>(false)
 
   form = new FormGroup({
     searchTerm: new FormControl<string | null>(''),
@@ -66,8 +68,21 @@ export class CategoriesPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoriesService.getCategories().subscribe()
-    this.categoriesService.getVisibleCategories().subscribe()
+    this.loadData()
+  }
+
+  loadData() {
+    forkJoin([
+      this.categoriesService.getCategories(),
+      this.categoriesService.getVisibleCategories(),
+    ]).subscribe({
+      next: () => {
+        this.hasServerError.set(false)
+      },
+      error: () => {
+        this.hasServerError.set(true)
+      },
+    })
   }
 
   setCategoriesSort(newSort: CategoriesSort) {

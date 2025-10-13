@@ -4,69 +4,81 @@
 ></app-categorie-header>
 
 <div class="card-container">
-  <div class="search-container">
-    <form [formGroup]="form">
-      <app-category-search formControlName="searchTerm"></app-category-search>
-      <app-categories-selector-item
-        formControlName="selectedGroup"
-        [groupCategories]="groupCategories()"
-      ></app-categories-selector-item>
-    </form>
+  @if (hasServerError()) {
+    <div class="flex-y-center">
+      <h4>Le serveur a rencontré une erreur, veuillez rééssayer</h4>
+      <button class="default-button" (click)="loadData()">Relancer</button>
+    </div>
+  } @else {
+    <div class="search-container">
+      <form [formGroup]="form">
+        <app-category-search formControlName="searchTerm"></app-category-search>
+        <app-categories-selector-item
+          formControlName="selectedGroup"
+          [groupCategories]="groupCategories()"
+        ></app-categories-selector-item>
+      </form>
 
-    @if (categoriesSort() === 'BY_ALPHA') {
-      <div class="categories-grid">
-        @for (category of mappedVisibleCategories(); track category.id) {
-          <!-- z-index required for outline display when selected -->
-          <app-categorie-item
-            [style.z-index]="
-              selectedItemId() === category.id ? '10000' : '1000'
-            "
-            (selected)="selectedItemId.set(category.id)"
-            [isSelected]="selectedItemId() === category.id"
-            [categorie]="category"
-            [displayGroup]="true"
-          ></app-categorie-item>
-        }
-      </div>
-    }
-    @if (categoriesSort() === 'BY_GROUP') {
-      <div class="flex-y">
-        @for (groupCategories of groupCategories(); track groupCategories.id) {
-          @if (mappedVisibleCategoriesByGroupId()[groupCategories.id]) {
-            <div
-              class="group-grid-header"
-              [style.color]="getColor(groupCategories)"
-              [style.background-color]="getBackgroundColor(groupCategories)"
-            >
-              {{ groupCategories.name }}
-            </div>
-
-            <div class="categories-grid">
-              @for (
-                category of mappedVisibleCategoriesByGroupId()[
-                  groupCategories.id
-                ];
-                track category.id
-              ) {
-                <!-- z-index required for outline display when selected -->
-                <app-categorie-item
-                  [style.z-index]="
-                    selectedItemId() === category.id ? '10000' : '1000'
-                  "
-                  (selected)="selectedItemId.set(category.id)"
-                  [isSelected]="selectedItemId() === category.id"
-                  [categorie]="category"
-                  [displayGroup]="false"
-                ></app-categorie-item>
-              }
-            </div>
+      @if (categoriesSort() === 'BY_ALPHA') {
+        <div class="categories-grid">
+          @for (category of mappedVisibleCategories(); track category.id) {
+            <!-- z-index required for outline display when selected -->
+            <app-categorie-item
+              [style.z-index]="
+                selectedItemId() === category.id ? '10000' : '1000'
+              "
+              (selected)="selectedItemId.set(category.id)"
+              [isSelected]="selectedItemId() === category.id"
+              [categorie]="category"
+              [displayGroup]="true"
+            ></app-categorie-item>
           }
-        }
-      </div>
-    }
-  </div>
+        </div>
+      }
+      @if (categoriesSort() === 'BY_GROUP') {
+        <div class="flex-y">
+          @for (
+            groupCategories of groupCategories();
+            track groupCategories.id
+          ) {
+            @if (mappedVisibleCategoriesByGroupId()[groupCategories.id]) {
+              <div
+                class="group-grid-header"
+                [style.color]="getColor(groupCategories)"
+                [style.background-color]="getBackgroundColor(groupCategories)"
+              >
+                {{ groupCategories.name }}
+              </div>
+
+              <div class="categories-grid">
+                @for (
+                  category of mappedVisibleCategoriesByGroupId()[
+                    groupCategories.id
+                  ];
+                  track category.id
+                ) {
+                  <!-- z-index required for outline display when selected -->
+                  <app-categorie-item
+                    [style.z-index]="
+                      selectedItemId() === category.id ? '10000' : '1000'
+                    "
+                    (selected)="selectedItemId.set(category.id)"
+                    [isSelected]="selectedItemId() === category.id"
+                    [categorie]="category"
+                    [displayGroup]="false"
+                  ></app-categorie-item>
+                }
+              </div>
+            }
+          }
+        </div>
+      }
+    </div>
+  }
 </div>
 
 <div class="footer-container">
-  <button class="footer-button">Sélectionner la catégorie</button>
+  <button class="default-button" [disabled]="!selectedItemId()">
+    Sélectionner la catégorie
+  </button>
 </div>
