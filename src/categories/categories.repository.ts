@@ -17,41 +17,65 @@ export class CategoriesRepository {
   private readonly selectedGroup = signal<number | null>(null)
 
   public readonly groupCategories: Signal<GroupCategory[]> = computed(() =>
-    this.categories()
+    this.mappedVisibleCategories()
       .filter((cat) => cat.group !== undefined)
       .map((c) => c.group)
-      .reduce<GroupCategory[]>((acc, group) => {
-        if (!acc.some((g) => g.id === group!.id)) {
-          acc.push(group!)
-        }
-        return acc
-      }, [])
+      .reduce<GroupCategory[]>(
+        (acc, group) => {
+          if (!acc.some((g) => g.id === group!.id)) {
+            acc.push(group!)
+          }
+          return acc
+        },
+        this.isThereWithoutGroup()
+          ? [{ id: -1, name: 'Sans groupe', color: 'm-grey' }]
+          : []
+      )
   )
 
-  public readonly mappedVisibleCategories: Signal<Category[]> = linkedSignal({
+  private readonly isThereWithoutGroup: Signal<boolean> = computed(() =>
+    this.mappedVisibleCategories().some((cat) => cat.group === undefined)
+  )
+
+  private readonly mappedVisibleCategories: Signal<Category[]> = linkedSignal({
     source: () => ({
       visibleCategories: this.visibleCategories(),
       categories: this.categories(),
-      searchTerm: this.searchTerm(),
-      selectedGroup: this.selectedGroup(),
     }),
     computation: (data) =>
       data.visibleCategories
         .map((vc) => data.categories.find((i) => i.id === vc.id))
-        .filter((cat) => cat !== undefined)
-        .filter((cat) =>
-          this.normalize(cat!.wording).includes(this.normalize(data.searchTerm))
-        )
-        .filter((cat) => {
-          if (data.selectedGroup === null) {
-            return true
-          }
-          return cat!.group?.id === data.selectedGroup
-        })
-        .sort((a, b) =>
-          a.wording.localeCompare(b.wording, 'fr', { sensitivity: 'base' })
-        ),
+        .filter((cat) => cat !== undefined),
   })
+
+  public readonly filteredMappedVisibleCategories: Signal<Category[]> =
+    linkedSignal({
+      source: () => ({
+        mappedVisibleCategories: this.mappedVisibleCategories(),
+        searchTerm: this.searchTerm(),
+        selectedGroup: this.selectedGroup(),
+      }),
+      computation: (data) =>
+        data.mappedVisibleCategories
+          .filter((cat) =>
+            this.normalize(cat!.wording).includes(
+              this.normalize(data.searchTerm)
+            )
+          )
+          .filter((cat) => {
+            if (data.selectedGroup === null) {
+              return true
+            }
+            if (cat!.group) {
+              return cat!.group?.id === data.selectedGroup
+            } else {
+              return data.selectedGroup === -1
+            }
+          })
+          .sort((a, b) =>
+            a.wording.localeCompare(b.wording, 'fr', { sensitivity: 'base' })
+          ),
+    })
 
   private normalize(str: string): string {
     return str
@@ -64,9 +88,9 @@ export class CategoriesRepository {
   public readonly mappedVisibleCategoriesByGroupId: Signal<{
     [key: number]: Category[]
   }> = computed(() =>
-    this.mappedVisibleCategories().reduce(
+    this.filteredMappedVisibleCategories().reduce(
       (acc, category) => {
-        const groupId = category.group?.id ?? 0
+        const groupId = category.group?.id ?? -1
         if (!acc[groupId]) {
           acc[groupId] = []
         }

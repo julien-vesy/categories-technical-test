@@ -29,8 +29,8 @@ export class CategoriesPage implements OnInit {
   private readonly categoriesRepository = inject(CategoriesRepository)
 
   readonly groupCategories = this.categoriesRepository.groupCategories
-  readonly mappedVisibleCategories =
-    this.categoriesRepository.mappedVisibleCategories
+  readonly filteredMappedVisibleCategories =
+    this.categoriesRepository.filteredMappedVisibleCategories
 
   readonly mappedVisibleCategoriesByGroupId =
     this.categoriesRepository.mappedVisibleCategoriesByGroupId

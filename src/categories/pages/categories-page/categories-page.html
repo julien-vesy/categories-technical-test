@@ -21,7 +21,10 @@
 
       @if (categoriesSort() === 'BY_ALPHA') {
         <div class="categories-grid">
-          @for (category of mappedVisibleCategories(); track category.id) {
+          @for (
+            category of filteredMappedVisibleCategories();
+            track category.id
+          ) {
             <app-categorie-item
               (selected)="selectedItemId.set(category.id)"
               [isSelected]="selectedItemId() === category.id"
