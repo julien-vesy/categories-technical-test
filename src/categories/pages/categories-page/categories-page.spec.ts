@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing'
 import { CategoriesPage } from './categories-page'
 import { provideHttpClient } from '@angular/common/http'
 import { provideHttpClientTesting } from '@angular/common/http/testing'
-import { BASE_URL } from '../../app/app.config'
-import { CategoriesRepository } from '../categories.repository'
+import { BASE_URL } from '../../../app/app.config'
+import { CategoriesRepository } from '../../categories.repository'
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 describe('CategoriesPage', () => {

@@ -1,14 +1,14 @@
 import { Component, inject, OnInit, signal } from '@angular/core'
-import { CategoriesService } from '../categories.service'
-import { CategoriesRepository } from '../categories.repository'
-import { CategorySelectorComponent } from '../components/category-selector/category-selector'
+import { CategoriesService } from '../../categories.service'
+import { CategoriesRepository } from '../../categories.repository'
+import { CategorySelectorComponent } from '../../components/category-selector/category-selector'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { CategoriesItem } from '../components/categorie-item/categories-item.component'
-import { CategorySearchComponent } from '../components/category-search/category-search'
+import { CategoriesItem } from '../../components/categorie-item/categories-item.component'
+import { CategorySearchComponent } from '../../components/category-search/category-search'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { CategorieHeader } from '../components/categorie-header/categorie-header'
-import { CategoriesSort } from '../models/categorie-sort'
-import { GroupCategory } from '../models/group-category'
+import { CategorieHeader } from '../../components/categorie-header/categorie-header'
+import { CategoriesSort } from '../../models/categorie-sort'
+import { GroupCategory } from '../../models/group-category'
 
 @Component({
   selector: 'app-categories-page',
