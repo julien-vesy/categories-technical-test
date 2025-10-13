@@ -1,0 +1,25 @@
+@use 'color' as *;
+
+select {
+  width: 100%;
+  padding: 12px 40px 12px 14px;
+  border: 1px solid #d6d6d6;
+  border-radius: 8px;
+  font-size: 15px;
+  box-sizing: border-box;
+
+  -webkit-appearance: none;
+  appearance: none;
+
+  &::-ms-expand {
+    display: none;
+  }
+
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 14px 14px;
+  background-image: url('/arrow-icon.svg');
+
+  color: $m-black;
+}

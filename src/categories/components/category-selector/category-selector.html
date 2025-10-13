@@ -1,0 +1,6 @@
+<select [(ngModel)]="selectedGroup" (change)="onGroupChange()">
+  <option [ngValue]="null">Tous les groupes de catégories</option>
+  @for (group of groupCategories(); track group.id) {
+    <option [value]="group.id">{{ group.name }}</option>
+  }
+</select>

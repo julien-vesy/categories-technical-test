@@ -1,0 +1,17 @@
+<div
+  class="categories-item-container"
+  [class.selected]="isSelected()"
+  (click)="selected.emit()"
+>
+  @if (displayGroup()) {
+    <span
+      class="group"
+      [style.color]="getColor()"
+      [style.background-color]="getBackgroundColor()"
+    >
+      {{ categorie().group?.name }}
+    </span>
+  }
+  <span class="title">{{ categorie().wording }}</span>
+  <span class="body" [innerHTML]="categorie().description"></span>
+</div>

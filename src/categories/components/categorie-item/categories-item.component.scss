@@ -1,0 +1,48 @@
+@use 'color' as *;
+
+.categories-item-container {
+  height: calc(100% - 30px);
+  flex: 0 0 46%;
+  background-color: white;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+:host {
+  border-bottom: 1px solid $m-grey;
+}
+:host:nth-child(odd) {
+  border-right: 1px solid $m-grey;
+}
+
+.categories-item-container:hover {
+  background-color: $m-grey;
+}
+
+.selected {
+  outline: 1px solid $m-blue-dark !important;
+  background-color: $m-blue !important;
+}
+
+.group {
+  padding: 2px 16px;
+  border-radius: 16px;
+  width: fit-content;
+  font-weight: 400;
+  margin-bottom: 10px;
+  font-size: 12px;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.body {
+  font-weight: 400;
+  color: $m-grey-dark;
+}

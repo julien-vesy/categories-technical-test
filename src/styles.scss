@@ -1,0 +1,48 @@
+@use 'color' as *;
+
+html,
+body {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  height: 100%;
+  --m-red: #{$m-red};
+  --m-red-dark: #{$m-red-dark};
+
+  --m-yellow: #{$m-yellow};
+  --m-yellow-dark: #{$m-yellow-dark};
+
+  --m-blue: #{$m-blue};
+  --m-blue-dark: #{$m-blue-dark};
+
+  --m-pink: #{$m-pink};
+  --m-pink-dark: #{$m-pink-dark};
+
+  --m-purple: #{$m-purple};
+  --m-purple-dark: #{$m-purple-dark};
+
+  --m-green: #{$m-green};
+  --m-green-dark: #{$m-green-dark};
+
+  --m-grey: #{$m-grey};
+  --m-grey-dark: #{$m-grey-dark};
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 120%;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.flex-y {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-y-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
