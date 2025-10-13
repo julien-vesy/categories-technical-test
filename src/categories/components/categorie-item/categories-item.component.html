@@ -3,7 +3,7 @@
   [class.selected]="isSelected()"
   (click)="selected.emit()"
 >
-  @if (displayGroup()) {
+  @if (displayGroup() && categorie().group) {
     <span
       class="group"
       [style.color]="getColor()"
