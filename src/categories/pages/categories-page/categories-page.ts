@@ -35,11 +35,11 @@ export class CategoriesPage implements OnInit {
   readonly mappedVisibleCategoriesByGroupId =
     this.categoriesRepository.mappedVisibleCategoriesByGroupId
 
-  categoriesSort = signal<CategoriesSort>('BY_GROUP')
-  selectedItemId = signal<number | undefined>(undefined)
-  hasServerError = signal<boolean>(false)
+  readonly categoriesSort = signal<CategoriesSort>('BY_GROUP')
+  readonly selectedItemId = signal<number | undefined>(undefined)
+  readonly hasServerError = signal<boolean>(false)
 
-  form = new FormGroup({
+  readonly form = new FormGroup({
     searchTerm: new FormControl<string | null>(''),
     selectedGroup: new FormControl<number | null>(null),
   })
