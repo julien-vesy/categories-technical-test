@@ -40,6 +40,9 @@
 
 :host {
   border-bottom: 1px solid $m-grey;
+  @media (max-width: 900px) {
+    border-right: 0 !important;
+  }
 }
 :host:nth-child(odd) {
   border-right: 1px solid $m-grey;
