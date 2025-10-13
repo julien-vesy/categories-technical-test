@@ -4,7 +4,10 @@
   [class.toggle]="categoriesSort() === 'BY_GROUP'"
   class="header-button"
 >
-  <img src="sort-group.svg" class="icon" alt="Groupe de Catégorie" />
+  <span
+    class="icon group"
+    [class.selected]="categoriesSort() === 'BY_GROUP'"
+  ></span>
   Groupe de catégorie
 </button>
 <button
@@ -12,6 +15,9 @@
   [class.toggle]="categoriesSort() === 'BY_ALPHA'"
   class="header-button"
 >
-  <img src="sort-alpha.svg" class="icon" alt="Ordre alhpabétique" />
+  <span
+    class="icon alpha"
+    [class.selected]="categoriesSort() === 'BY_ALPHA'"
+  ></span>
   Ordre alphabétique
 </button>

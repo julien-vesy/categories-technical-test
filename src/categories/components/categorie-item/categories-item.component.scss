@@ -8,6 +8,34 @@
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  .group {
+    padding: 2px 16px;
+    border-radius: 16px;
+    width: fit-content;
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-size: 12px;
+    letter-spacing: 0;
+    vertical-align: middle;
+  }
+
+  .title {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: 0;
+    vertical-align: middle;
+  }
+
+  .description {
+    font-weight: 400;
+    color: $m-grey-dark;
+    font-size: 14px;
+    line-height: 120%;
+    letter-spacing: 0;
+    vertical-align: middle;
+  }
 }
 
 :host {
@@ -24,25 +52,4 @@
 .selected {
   outline: 1px solid $m-blue-dark !important;
   background-color: $m-blue !important;
-}
-
-.group {
-  padding: 2px 16px;
-  border-radius: 16px;
-  width: fit-content;
-  font-weight: 400;
-  margin-bottom: 10px;
-  font-size: 12px;
-  letter-spacing: 0;
-  vertical-align: middle;
-}
-
-.title {
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.body {
-  font-weight: 400;
-  color: $m-grey-dark;
 }

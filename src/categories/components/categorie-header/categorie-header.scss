@@ -8,7 +8,6 @@
   align-items: center;
   padding: 0 122px;
   background-color: white;
-  z-index: 100000;
   @media (max-width: 900px) {
     justify-content: center;
   }
@@ -27,15 +26,33 @@
     height: 30px;
     min-width: 160px;
     background-color: white;
-    color: $m-grey-dark;
+    color: $m-grey-title;
     display: flex;
     align-items: center;
     cursor: pointer;
-
     font-weight: 600;
+    font-size: 12px;
+    line-height: 120%;
+    letter-spacing: 0;
+    vertical-align: middle;
 
-    img {
-      margin-right: 5px;
+    .icon {
+      margin-right: 8px;
+      width: 14px;
+      height: 14px;
+      background: $m-grey-title;
+
+      &.group {
+        mask: url('/sort-group.svg') no-repeat center;
+      }
+
+      &.alpha {
+        mask: url('/sort-alpha.svg') no-repeat center;
+      }
+
+      &.selected {
+        background: $m-blue-dark;
+      }
     }
 
     &.toggle {

@@ -22,11 +22,7 @@
       @if (categoriesSort() === 'BY_ALPHA') {
         <div class="categories-grid">
           @for (category of mappedVisibleCategories(); track category.id) {
-            <!-- z-index required for outline display when selected -->
             <app-categorie-item
-              [style.z-index]="
-                selectedItemId() === category.id ? '10000' : '1000'
-              "
               (selected)="selectedItemId.set(category.id)"
               [isSelected]="selectedItemId() === category.id"
               [categorie]="category"
@@ -57,11 +53,7 @@
                   ];
                   track category.id
                 ) {
-                  <!-- z-index required for outline display when selected -->
                   <app-categorie-item
-                    [style.z-index]="
-                      selectedItemId() === category.id ? '10000' : '1000'
-                    "
                     (selected)="selectedItemId.set(category.id)"
                     [isSelected]="selectedItemId() === category.id"
                     [categorie]="category"
