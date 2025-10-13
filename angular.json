@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "categorie-technical-test": {
+    "categories-technical-test": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -63,10 +63,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "categorie-technical-test:build:production"
+              "buildTarget": "categories-technical-test:build:production"
             },
             "development": {
-              "buildTarget": "categorie-technical-test:build:development"
+              "buildTarget": "categories-technical-test:build:development"
             }
           },
           "defaultConfiguration": "development"
