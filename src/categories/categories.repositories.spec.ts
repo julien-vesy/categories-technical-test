@@ -6,29 +6,29 @@ import { VisibleCategory } from './models/visible-category'
 describe('CategoriesRepository', () => {
   let service: CategoriesRepository
 
-  const groupA: GroupCategory = { id: 1, name: 'Groupe A', color: 'red' }
-  const groupB: GroupCategory = { id: 2, name: 'Groupe B', color: 'blue' }
+  const groupA: GroupCategory = { id: 1, name: 'Remboursement', color: 'red' }
+  const groupB: GroupCategory = { id: 2, name: 'Impôt', color: 'blue' }
 
   const categories: Category[] = [
     {
       id: 1,
-      wording: 'Pommes',
-      description: 'Description Pommes',
+      wording: 'cotisations',
+      description: 'cotisations sociales',
       group: groupA,
     },
     {
       id: 2,
-      wording: 'Bananes',
-      description: 'Description Bananes',
+      wording: 'Frais bancaires',
+      description: 'Frais facturés',
       group: groupA,
     },
     {
       id: 3,
-      wording: 'Tomates',
-      description: 'Description Tomates',
+      wording: 'Sous-traitance',
+      description: 'Achats de marchandises',
       group: groupB,
     },
-    { id: 4, wording: 'Poires', description: 'Description Poires' }, // sans groupe
+    { id: 4, wording: 'TVA', description: 'TVA sur factures' },
   ]
 
   const visibleCategories: VisibleCategory[] = [
@@ -58,8 +58,8 @@ describe('CategoriesRepository', () => {
     })
 
     it('devrait définir le terme de recherche correctement', () => {
-      service.setSearchTerm('fruit')
-      expect(service['searchTerm']()).toBe('fruit')
+      service.setSearchTerm('cotisation')
+      expect(service['searchTerm']()).toBe('cotisation')
     })
 
     it('devrait définir le groupe sélectionné correctement', () => {
@@ -90,9 +90,9 @@ describe('CategoriesRepository', () => {
     })
 
     it('devrait filtrer selon le terme de recherche (insensible aux accents et majuscules)', () => {
-      service.setSearchTerm('pom')
+      service.setSearchTerm('cot')
       const result = service.mappedVisibleCategories()
-      expect(result.map((c) => c.wording)).toEqual(['Pommes'])
+      expect(result.map((c) => c.wording)).toEqual(['cotisations'])
     })
 
     it('devrait filtrer selon le groupe sélectionné', () => {
@@ -105,7 +105,7 @@ describe('CategoriesRepository', () => {
       service.setSelectedGroup(1)
       service.setSearchTerm('ban')
       const result = service.mappedVisibleCategories()
-      expect(result.map((c) => c.wording)).toEqual(['Bananes'])
+      expect(result.map((c) => c.wording)).toEqual(['Frais bancaires'])
     })
   })
 
@@ -121,7 +121,7 @@ describe('CategoriesRepository', () => {
     it('devrait inclure les catégories sans groupe sous l’ID 0', () => {
       const result = service.mappedVisibleCategoriesByGroupId()
       expect(result[0]).toBeDefined()
-      expect(result[0][0].wording).toBe('Poires')
+      expect(result[0][0].wording).toBe('TVA')
     })
   })
 
