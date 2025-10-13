@@ -26,9 +26,9 @@ npm test
 
 ## Documentation
 
-La page `categories-page` contient plusieur composants:
+La page `categories-page` contient plusieurs composants:
 
-- `categorie-header` permet de gérer l'entête et la selection dans l'entête
+- `categorie-header` permet de gérer l'en-tête et la selection dans l'en-tête
 - `categorie-item` card de base d'une catégorie, contient son nom, sa description et peut contenir son groupe
 - `categorie-search` composant de formulaire, permet de gérer une recherche
-- `categorie-selector` composant de formulaire, prend une liste de groupe, retourne le groupe selectionné
+- `categorie-selector` composant de formulaire, prend une liste de groupes, retourne le groupe selectionné
