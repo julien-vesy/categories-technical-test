@@ -34,7 +34,7 @@ export class CategoriesRepository {
     defaultValue: [],
   })
 
-  hasServerError = computed(
+  readonly hasServerError = computed(
     () => this.visibleCategories.error() || this.categories.error()
   )
 
