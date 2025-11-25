@@ -1,5 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core'
-import { CategoriesService } from '../../categories.service'
+import { Component, inject, signal } from '@angular/core'
 import { CategoriesRepository } from '../../categories.repository'
 import { CategorySelectorComponent } from '../../components/category-selector/category-selector'
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms'
@@ -9,7 +8,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { CategorieHeader } from '../../components/categorie-header/categorie-header'
 import { CategoriesSort } from '../../models/categorie-sort'
 import { GroupCategory } from '../../models/group-category'
-import { forkJoin } from 'rxjs'
 
 @Component({
   selector: 'app-categories-page',
@@ -20,12 +18,11 @@ import { forkJoin } from 'rxjs'
     CategorySearchComponent,
     CategorieHeader,
   ],
-  providers: [CategoriesRepository, CategoriesService],
+  providers: [CategoriesRepository],
   templateUrl: './categories-page.html',
   styleUrl: './categories-page.scss',
 })
-export class CategoriesPage implements OnInit {
-  private readonly categoriesService = inject(CategoriesService)
+export class CategoriesPage {
   private readonly categoriesRepository = inject(CategoriesRepository)
 
   readonly groupCategories = this.categoriesRepository.groupCategories
@@ -37,7 +34,7 @@ export class CategoriesPage implements OnInit {
 
   readonly categoriesSort = signal<CategoriesSort>('BY_GROUP')
   readonly selectedItemId = signal<number | undefined>(undefined)
-  readonly hasServerError = signal<boolean>(false)
+  readonly hasServerError = this.categoriesRepository.hasServerError
 
   readonly form = new FormGroup({
     searchTerm: new FormControl<string | null>(''),
@@ -67,22 +64,8 @@ export class CategoriesPage implements OnInit {
     return 'var(--' + (groupCategory?.color ?? 'm-grey') + ')'
   }
 
-  ngOnInit(): void {
-    this.loadData()
-  }
-
   loadData() {
-    forkJoin([
-      this.categoriesService.getCategories(),
-      this.categoriesService.getVisibleCategories(),
-    ]).subscribe({
-      next: () => {
-        this.hasServerError.set(false)
-      },
-      error: () => {
-        this.hasServerError.set(true)
-      },
-    })
+    this.categoriesRepository.reload()
   }
 
   setCategoriesSort(newSort: CategoriesSort) {

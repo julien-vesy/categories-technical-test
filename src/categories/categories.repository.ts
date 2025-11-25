@@ -1,18 +1,43 @@
 import {
   computed,
+  inject,
   Injectable,
   linkedSignal,
+  resource,
   Signal,
   signal,
 } from '@angular/core'
 import { Category } from './models/categorie'
 import { VisibleCategory } from './models/visible-category'
 import { GroupCategory } from './models/group-category'
+import { BASE_URL } from '../app/app.config'
 
 @Injectable()
 export class CategoriesRepository {
-  private readonly categories = signal<Category[]>([])
-  private readonly visibleCategories = signal<VisibleCategory[]>([])
+  private readonly baseUrl = inject(BASE_URL)
+
+  private readonly categories = resource({
+    loader: () => {
+      return fetch(`${this.baseUrl}/api/all-categories`).then(
+        (res) => res.json() as Promise<Category[]>
+      )
+    },
+    defaultValue: [],
+  })
+
+  private readonly visibleCategories = resource({
+    loader: () => {
+      return fetch(`${this.baseUrl}/api/visible-categories`).then(
+        (res) => res.json() as Promise<VisibleCategory[]>
+      )
+    },
+    defaultValue: [],
+  })
+
+  hasServerError = computed(
+    () => this.visibleCategories.error() || this.categories.error()
+  )
+
   private readonly searchTerm = signal<string>('')
   private readonly selectedGroup = signal<number | null>(null)
 
@@ -39,8 +64,8 @@ export class CategoriesRepository {
 
   private readonly mappedVisibleCategories: Signal<Category[]> = linkedSignal({
     source: () => ({
-      visibleCategories: this.visibleCategories(),
-      categories: this.categories(),
+      visibleCategories: this.visibleCategories.value(),
+      categories: this.categories.value(),
     }),
     computation: (data) =>
       data.visibleCategories
@@ -101,19 +126,16 @@ export class CategoriesRepository {
     )
   )
 
-  public setCategories(categories: Category[]): void {
-    this.categories.set(categories)
-  }
-
-  public setVisibleCategories(categories: VisibleCategory[]): void {
-    this.visibleCategories.set(categories)
-  }
-
   public setSearchTerm(searchTerm: string | null): void {
     this.searchTerm.set(searchTerm!)
   }
 
   public setSelectedGroup(groupId: number | null): void {
     this.selectedGroup.set(groupId !== null ? +groupId : null)
+  }
+
+  public reload() {
+    this.categories.reload()
+    this.visibleCategories.reload()
   }
 }
