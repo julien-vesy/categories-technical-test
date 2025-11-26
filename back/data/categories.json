@@ -1,0 +1,40 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "group": { "id": 10, "name": "Maison", "color": "#FF5733" },
+      "wording": "Cuisine",
+      "description": "Tout pour la cuisine quotidienne"
+    },
+    {
+      "id": 2,
+      "group": { "id": 10, "name": "Maison", "color": "#FF5733" },
+      "wording": "Salle de bain",
+      "description": "Articles pour la salle de bain"
+    },
+    {
+      "id": 3,
+      "group": { "id": 11, "name": "Technologie", "color": "#3366FF" },
+      "wording": "Smartphones",
+      "description": "Téléphones intelligents et accessoires"
+    },
+    {
+      "id": 4,
+      "group": { "id": 11, "name": "Technologie", "color": "#3366FF" },
+      "wording": "Ordinateurs",
+      "description": "PC portables, fixes et périphériques"
+    },
+    {
+      "id": 5,
+      "wording": "Sport",
+      "description": "Équipements sportifs"
+    }
+  ],
+  "visibleCategories": [
+    { "id": 1 },
+    { "id": 2 },
+    { "id": 3 },
+    { "id": 4 },
+    { "id": 5 }
+  ]
+}
