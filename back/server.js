@@ -26,7 +26,7 @@ app.get("/visible-categories", (req, res) => {
 });
 
 // Lancement serveur
-const PORT = 3000;
+const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`API running at http://localhost:${PORT}`);
 });
